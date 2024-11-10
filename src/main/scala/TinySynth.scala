@@ -8,6 +8,7 @@ class TinySynth(cfg: TinySynthConfig) extends Module {
     val pwmOut = Output(Bool())
     val uartIn = Input(Bool())
   })
+
   val pwm = Module(new PulseWidthModulator(cfg))
   val merge = Module(new Merge(cfg))
   val uart = Module(new UART(cfg))

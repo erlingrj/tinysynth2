@@ -14,22 +14,18 @@ class ChiselTop() extends Module {
     val ena = Input(Bool())           // will go high when the design is enabled
   })
 
+
+  val cfg = DefaultConfig
+  val tinySynth = Module(new TinySynth(DefaultConfig))
+  // Forward TinySynth outputs
+  io.uo_out := tinySynth.io.pwmOut.asUInt
+
+  // Forward to TinySynths inputs
+  tinySynth.io.uartIn := io.ui_in(0)
+
+  // Drive currently unused signals to 0
   io.uio_out := 0.U
-  // use bi-directionals as input
   io.uio_oe := 0.U
-
-  val add = WireDefault(0.U(7.W))
-  add := io.ui_in + io.uio_in
-
-  // Blink with 1 Hzq
-  val cntReg = RegInit(0.U(32.W))
-  val ledReg = RegInit(0.U(1.W))
-  cntReg := cntReg + 1.U
-  when (cntReg === 25000000.U) {
-    cntReg := 0.U
-    ledReg := ~ledReg
-  }
-  io.uo_out := ledReg ## add
 }
 
 object ChiselTop extends App {
