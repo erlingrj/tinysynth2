@@ -21,7 +21,7 @@ class ChiselTop() extends Module {
   io.uo_out := tinySynth.io.pwmOut.asUInt
 
   // Forward to TinySynths inputs
-  tinySynth.io.uartIn := io.ui_in(0)
+  tinySynth.io.uartIn := io.ui_in(1)
 
   // Drive currently unused signals to 0
   io.uio_out := 0.U
