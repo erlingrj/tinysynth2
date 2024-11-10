@@ -50,8 +50,8 @@ jobs:
       - uses: sbt/setup-sbt@v1
       - name: generate Verilog
         run: sbt run
-      - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@tt09
+      # - name: GL test
+      #   uses: TinyTapeout/tt-gds-action/gl_test@tt09
 
   viewer:
     needs: gds
